@@ -159,7 +159,7 @@ public class Round_3_Review {
                 //saves column location of last name 
                 if (studentLine[i].contains("Recipient Last Name")){
                     locationLast = i;
-                    System.out.println("--variable for last name created.");
+                    System.out.println("--variable for last name created."); //test
                 }
                 //saves column location of first name
                 else if (studentLine[i].contains("Recipient First Name")){
