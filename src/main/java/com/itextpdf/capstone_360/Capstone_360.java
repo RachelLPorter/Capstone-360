@@ -1,4 +1,4 @@
-package com.itextpdf.round_3_review;
+package com.itextpdf.capstone_360;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,7 +19,7 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
 
-public class Round_3_Review {
+public class Capstone_360 {
        
     public static void main(String[] args) throws IOException {
         //welcome
@@ -27,7 +27,7 @@ public class Round_3_Review {
         
         //create scanner object
         Scanner scan =  new Scanner(System.in);
-        System.out.print("Scanner object created");
+        //System.out.print("Scanner object created");
         
         //new edits with making flexible for users:
         //Names for users:
@@ -59,20 +59,20 @@ public class Round_3_Review {
         System.out.println("Delimiter set.");
         
         //ask for the round number to input
-        System.out.print("What is the round number? ");
+        System.out.print("Please enter the round number? ");
         String roundNum = scan.nextLine();
-        System.out.print("Are you sure you mean round " + roundNum + "? y/n ");
+        System.out.print("Please confirm that you mean round " + roundNum + "? y/n ");
         String confirmation = scan.nextLine();
         if (confirmation.equalsIgnoreCase("y")){
-            System.out.println("Proceed");
+            System.out.println("Round number confirmed.");
         }
         else{
             System.out.println("Please enter the round number you meant: ");
             roundNum = scan.nextLine();
         }
-        System.out.print("What year is it: ");
+        System.out.print("Please enter the current year: ");
         String year = scan.nextLine();
-        System.out.print("Fall or Spring semester? Fall/Spring: ");
+        System.out.print("Please enter the current semester Fall/Spring: ");
         String semester = scan.nextLine();
         if(semester.equalsIgnoreCase("fall")){
             semester = "Fall";
@@ -87,24 +87,23 @@ public class Round_3_Review {
         //make base_path more detailed
         base_path += year + " " + semester + " " + "Capstone\\";
         CSVFILENAME = base_path + "Rounds\\Round " + roundNum + "\\Program\\" + year + " " + semester + " " + "Round " + roundNum + " Data.csv";
+        System.out.println("File name string created.");
         PREVIOUSROUNDSCSV = base_path + "Rounds\\Previous Data\\Round1.csv";
         PREVIOUSROUNDSCSV2 = base_path + "Rounds\\Previous Data\\Round2.csv";
-        
-        System.out.println("File name string created.");        
         System.out.println("Previous round file names created.");
         
 /* ----------------------------------------------------------------------------------------------------------------------------------------------*/        
         //create the array of students called roster, calls method that creates the student objects from passing in the CSV file
         System.out.println("Starting to create student roster. Please wait.");
         ArrayList<Student> roster = createStudents(CSVFILENAME, DELIMITER);
-        System.out.println("Student roster successfully created.");
+        System.out.println("Student roster created.");
 
         //calls create feedback array, sends the csv file location and the roster populated with student objects
         System.out.println("Starting to create feedback for each student. Please wait.");
         createFeedback(CSVFILENAME, roster, DELIMITER);
-        System.out.println("Feedback for each student successfully created.");
+        System.out.println("Feedback for each student created.");
         //creates the teams from calling the team array...not really used yet in this version of code
-        System.out.println("Creating teams. Please wait.");
+//        System.out.println("Creating teams. Please wait.");   --- currently not using - teams are not needed
 //not needed for now        ArrayList<Team> teamList = createTeams(roster, CSVFILENAME, DELIMITER);
         
         //create the csv file for when there are multiple rounds to be done
@@ -120,9 +119,9 @@ public class Round_3_Review {
         //final step to create the documents that are saved in the shared folder
         System.out.println("Creating the PDFs. Please wait.");
         CreateDocs(CSVFILENAME, roster, /*teamList,*/ roundNum, semester, year, base_path);
-        System.out.println("PDFs successfully created.");
+        System.out.println("PDFs created.");
         
-        System.out.println("Thank you.");
+        System.out.println("Process complete.");
     }
     
     
@@ -240,7 +239,7 @@ public class Round_3_Review {
                 System.out.println("--Student object created successfully for " + fname + " " + lname +".");
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Round_3_Review.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Capstone_360.class.getName()).log(Level.SEVERE, null, ex);
         }
         //returns completed student roster
         return roster;
@@ -486,7 +485,7 @@ public class Round_3_Review {
             }
           
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Round_3_Review.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Capstone_360.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -621,7 +620,7 @@ public class Round_3_Review {
                 
             
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Round_3_Review.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Capstone_360.class.getName()).log(Level.SEVERE, null, ex);
         }
        return teamList; 
     }
@@ -663,15 +662,15 @@ public class Round_3_Review {
                     .setListSymbol("\u2022");
                        
             if(roundNum.equals("3")){
-                listAverage.add(new ListItem("Skill Set:\t\tPersonal\t\tAverage\t\tRound 1\t\tRound 2"));
-                listAverage.add(new ListItem("Technical:\t\t\t" + tech[0] + "\t\t\t" + tech[1] + "\t\t\t\t" + s.getPrevTech1() + "\t\t\t\t" + s.getPrevTech2()));
-                listAverage.add(new ListItem("Analytical:\t\t\t" + ana[0] + "\t\t\t" + ana[1] + "\t\t\t\t" + s.getPrevAna1() + "\t\t\t\t" + s.getPrevAna2()));
-                listAverage.add(new ListItem("Communication:\t" + com[0] + "\t\t\t" + com[1] + "\t\t\t\t" + s.getPrevCom1() + "\t\t\t\t" + s.getPrevCom2()));
-                listAverage.add(new ListItem("Participation:\t\t" + part[0] + "\t\t\t" + part[1] + "\t\t\t\t" + s.getPrevPart1() + "\t\t\t\t" + s.getPrevPart2()));
-                listAverage.add(new ListItem("Performance:\t\t" + perf[0] + "\t\t\t" + perf[1] + "\t\t\t\t" + s.getPrevPerf1() + "\t\t\t\t" + s.getPrevPerf2()));
+                listAverage.add(new ListItem("Skill Set:\t\tPersonal\t\tRound 3\t\tRound 2\t\tRound 1"));
+                listAverage.add(new ListItem("Technical:\t\t\t" + tech[0] + "\t\t\t" + tech[1] + "\t\t\t\t" + s.getPrevTech2() + "\t\t\t\t" + s.getPrevTech1()));
+                listAverage.add(new ListItem("Analytical:\t\t\t" + ana[0] + "\t\t\t" + ana[1] + "\t\t\t\t" + s.getPrevAna2() + "\t\t\t\t" + s.getPrevAna1()));
+                listAverage.add(new ListItem("Communication:\t" + com[0] + "\t\t\t" + com[1] + "\t\t\t\t" + s.getPrevCom2() + "\t\t\t\t" + s.getPrevCom1()));
+                listAverage.add(new ListItem("Participation:\t\t" + part[0] + "\t\t\t" + part[1] + "\t\t\t\t" + s.getPrevPart2() + "\t\t\t\t" + s.getPrevPart1()));
+                listAverage.add(new ListItem("Performance:\t\t" + perf[0] + "\t\t\t" + perf[1] + "\t\t\t\t" + s.getPrevPerf2() + "\t\t\t\t" + s.getPrevPerf1()));
             }
             else if (roundNum.equals("2")){
-                listAverage.add(new ListItem("Skill Set:\t\tPersonal\t\tAverage\t\tRound 1"));
+                listAverage.add(new ListItem("Skill Set:\t\tPersonal\t\tRound 2\t\tRound 1"));
                 listAverage.add(new ListItem("Technical:\t\t\t" + tech[0] + "\t\t\t" + tech[1] + "\t\t\t\t" + s.getPrevTech1()));
                 listAverage.add(new ListItem("Analytical:\t\t\t" + ana[0] + "\t\t\t" + ana[1] + "\t\t\t\t" + s.getPrevAna1()));
                 listAverage.add(new ListItem("Communication:\t" + com[0] + "\t\t\t" + com[1] + "\t\t\t\t" + s.getPrevCom1()));
@@ -679,7 +678,7 @@ public class Round_3_Review {
                 listAverage.add(new ListItem("Performance:\t\t" + perf[0] + "\t\t\t" + perf[1] + "\t\t\t\t" + s.getPrevPerf1()));
             }
             else {
-                listAverage.add(new ListItem("Skill Set:\t\tPersonal\t\tAverage"));
+                listAverage.add(new ListItem("Skill Set:\t\tPersonal\t\tRound 1"));
                 listAverage.add(new ListItem("Technical:\t\t\t" + tech[0] + "\t\t\t" + tech[1]));
                 listAverage.add(new ListItem("Analytical:\t\t\t" + ana[0] + "\t\t\t" + ana[1]));
                 listAverage.add(new ListItem("Communication:\t" + com[0] + "\t\t\t" + com[1]));
@@ -867,7 +866,7 @@ public class Round_3_Review {
             //System.out.println(s.getPrevTech());}
             
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Round_3_Review.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Capstone_360.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -972,7 +971,7 @@ public class Round_3_Review {
             //System.out.println(s.getPrevTech());}
             
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Round_3_Review.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Capstone_360.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

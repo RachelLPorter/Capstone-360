@@ -7,10 +7,10 @@
             </packagings>
             <goals>
                 <goal>process-classes</goal>
-                <goal>org.codehaus.mojo:exec-maven-plugin:1.5.0:exec</goal>
+                <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-classpath %classpath com.itextpdf.round_3_review.Round_3_Review</exec.args>
+                <exec.args>-classpath %classpath com.itextpdf.capstone_360.Capstone_360</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
